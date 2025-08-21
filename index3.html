@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KariaKoo Social - Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #00b894, #0984e3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* First Animation: Floating Shopping Carts */
+    .floating-carts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .cart {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.15;
+      color: #fff;
+      z-index: 1;
+    }
+
+    /* Second Animation: Pulsing Circles */
+    .pulsing-circles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(0);
+      z-index: 1;
+    }
+
+    /* Login Box */
+    .login-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+      z-index: 2;
+      position: relative;
+      backdrop-filter: blur(10px);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2d3436;
+      font-weight: 600;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 32px;
+      color: #0984e3;
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #2d3436;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #0984e3;
+      box-shadow: 0 0 0 2px rgba(9, 132, 227, 0.2);
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .forgot-password {
+      color: #0984e3;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #0870c5;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #636e72;
+    }
+
+    .register-link a {
+      color: #0984e3;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animation for form elements */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-box > * {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .logo {
+      animation-delay: 0.1s;
+    }
+
+    .login-box h2 {
+      animation-delay: 0.2s;
+    }
+
+    .form-group {
+      animation-delay: 0.3s;
+    }
+
+    .remember-forgot {
+      animation-delay: 0.4s;
+    }
+
+    button {
+      animation-delay: 0.5s;
+    }
+
+    .register-link {
+      animation-delay: 0.6s;
+    }
+  </style>
+</head>
+<body>
+  <!-- First Animation: Floating Shopping Carts -->
+  <div class="floating-carts" id="floatingCarts"></div>
+  
+  <!-- Second Animation: Pulsing Circles -->
+  <div class="pulsing-circles" id="pulsingCircles"></div>
+
+  <div class="login-box">
+    <div class="logo">KariaKooSocial</div>
+    <h2>Welcome Back</h2>
+    <form>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+      
+      <div class="remember-forgot">
+        <label class="remember">
+          <input type="checkbox"> Remember me
+        </label>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </div>
+      
+      <button type="submit">Login</button>
+      
+      <div class="register-link">
+        Don't have an account? <a href="#">Register now</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // First Animation: Create floating shopping carts
+    const floatingCarts = document.getElementById('floatingCarts');
+    const cartIcons = ['🛒', '📦', '📱', '🛍️', '💰', '📊'];
+    
+    for (let i = 0; i < 15; i++) {
+      const cart = document.createElement('div');
+      cart.className = 'cart';
+      cart.innerHTML = cartIcons[Math.floor(Math.random() * cartIcons.length)];
+      cart.style.left = `${Math.random() * 100}%`;
+      cart.style.top = `${Math.random() * 100}%`;
+      cart.style.fontSize = `${Math.random() * 20 + 15}px`;
+      
+      // Animate the cart
+      const duration = Math.random() * 15 + 10;
+      const delay = Math.random() * 5;
+      cart.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
+      
+      floatingCarts.appendChild(cart);
+    }
+
+    // Add keyframes for floating animation
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes float {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        25% {
+          transform: translate(5vw, 10vh) rotate(5deg);
+        }
+        50% {
+          transform: translate(10vw, 5vh) rotate(0deg);
+        }
+        75% {
+          transform: translate(5vw, -5vh) rotate(-5deg);
+        }
+        100% {
+          transform: translate(-5vw, -10vh) rotate(0deg);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Second Animation: Create pulsing circles
+    const pulsingCircles = document.getElementById('pulsingCircles');
+    
+    for (let i = 0; i < 8; i++) {
+      const circle = document.createElement('div');
+      circle.className = 'circle';
+      
+      const size = Math.random() * 200 + 100;
+      circle.style.width = `${size}px`;
+      circle.style.height = `${size}px`;
+      circle.style.left = `${Math.random() * 100}%`;
+      circle.style.top = `${Math.random() * 100}%`;
+      
+      // Animate the circle
+      const duration = Math.random() * 10 + 15;
+      const delay = Math.random() * 5;
+      circle.style.animation = `pulse ${duration}s ease-in-out ${delay}s infinite`;
+      
+      pulsingCircles.appendChild(circle);
+    }
+
+    // Add keyframes for pulsing animation
+    const pulseStyle = document.createElement('style');
+    pulseStyle.innerHTML = `
+      @keyframes pulse {
+        0% {
+          transform: scale(0);
+          opacity: 0.8;
+        }
+        50% {
+          opacity: 0.4;
+        }
+        100% {
+          transform: scale(1.5);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(pulseStyle);
+
+    // Form validation
+    const loginForm = document.querySelector('form');
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      if (email && password) {
+        // Simulate successful login
+        alert('Login successful! Redirecting...');
+        // Here you would typically redirect or make an API call
+      }
+    });
+  </script>
+</body>
+</html>
