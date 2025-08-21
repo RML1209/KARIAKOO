@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Header</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 8px;
+    font-family: Arial,Times New Roman,Sans-Serif;
+}
+body {
+    background-color:black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* Top row with menu and filter */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: grey;
+}
+header{
+  background-color: darkblue;
+  margin-bottom: 10px;
+
+}
+
+/* Menu icon */
+.menu-icon {
+    font-size: 25px;
+    cursor: pointer;
+  
+    
+  
+}
+
+
+/* Sidebar */
+#sidebar {
+    height: 80%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color:transparent;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    z-index: 1000;
+    border-radius:10px;
+}
+#sidebar a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.2s;
+    text-align:center;
+}
+#sidebar a:hover {
+    background: #575757;
+}
+#sidebar .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-link{
+  padding:1px;
+  background-color:black;
+  border-radius:30px;
+  color:white;
+  margin:5px;
+
+}
+
+/* Filter button */
+.filter-btn {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    background: #444;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+.filter-btn span {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.scroll-nav {
+    display: flex;
+    overflow-x: auto;   /* inaruhusu kuscroll kushoto/kulia */
+    white-space: nowrap;
+    background: #f5f5f5;
+    padding: 10px;
+    margin-bottom:8px;
+    margin-top:2px;
+    scrollbar-width: none; /* usionekane scrollbar firefox */
+  }
+  .scroll-nav::-webkit-scrollbar {
+    display: none; /* usionekane scrollbar chrome/safari */
+  }
+
+  .scroll-nav a {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 8px 16px;
+    background: white;
+    border-radius: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    transition: all 0.3s;
+  }
+
+  .scroll-nav a:hover {
+    background: #0071dc;
+    color: white;
+    border-color: #0071dc;
+  }
+
+  /* Responsive */
+  @media (min-width: 768px) {
+    .scroll-nav {
+      justify-content: center;
+    }
+  }
+
+/* Bottom row with logo and search bar */
+.header-bottom {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 15px 15px;
+    gap: 10px;
+}
+
+.picha {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    margin-bottom: 5px;      /* Space between logo and site name */
+}
+
+.picha img {
+    width: 50px;             /* Adjust size as needed */
+    height: 50px;
+    object-fit: contain; /* Keeps logo proportions */
+    border-radius:9px;
+    border-color: black;
+
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    font-family:roboto;
+    font-size: 100%;
+    color: lightblue;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #555;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 5px;
+    background-color: #333;
+}
+.search-container input {
+    border: none;
+    padding: 8px 10px;
+    flex: 1;
+    outline: none;
+    background-color: transparent;
+    color: white;
+}
+.search-container button {
+    background-color: #555;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) {
+    .header-bottom {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .search-container {
+        max-width: 400px;
+        flex: 1;
+        margin-left: 20px;
+    }
+}
+/* Hero Section */
+    .hero {
+      position: relative;
+      height: 200px;
+      margin-bottom: 15px;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-text {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    /* Carousel (Static) */
+    .carousel {
+      margin-bottom: 20px;
+    }
+
+    .carousel h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .carousel-container {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 15px;
+      padding: 10px;
+    }
+
+    .carousel-item {
+      flex: 0 0 auto;
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin:none;
+    }
+
+    .carousel-item img {
+     width: 100%;
+     
+      height: 70%;
+      object-fit: cover
+      border-radius: 100px;
+      
+    }
+
+    .carousel-item h3 {
+      font-size: 1rem;
+      margin-top: 8px;
+      color: green;
+     
+     
+    
+    }
+
+    .carousel-item p {
+      font-size: 0.9rem;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      color: lightgreen;
+    }
+
+    /* Products */
+    .products {
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 15px;
+      margin: 0 auto;
+    }
+
+    .products h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      text-align: center;
+      color:yellow;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    
+    }
+
+    .product-card {
+      flex: 1 1 100%;
+      background-color: white;
+      padding: 50px;
+      padding-bottom: 0px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .product-card h3 {
+      color: green;
+      margin-top: 10px;
+      margin-bottom: 10x;
+    
+    }
+    .product-card p{
+     color: lightgreen;
+     margin-top: 10px;
+     margin-bottom:10px;
+    }
+    
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .add-to-cart {
+      background-color: #ff9900;
+      color: white;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+      margin-top:10px;
+      margin-bottom: 30px;
+      
+    }
+
+    .add-to-cart:hover {
+      background-color: #e68a00;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #232f3e;
+      color: white;
+      padding: 20px 15px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .footer-links a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Media Queries for Mobile */
+    @media (max-width: 767px) {
+      .hamburger {
+        display: block;
+      }
+
+      .nav-right {
+        display: none;
+      }
+
+      .nav-right.nav-open {
+        display: flex;
+      }
+
+      .search-bar {
+        order: -1;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .carousel-container {
+        flex-wrap: nowrap;
+      }
+    }
+
+    /* Media Queries for Tablets */
+    @media (min-width: 768px) {
+      .nav-container {
+        max-width: 720px;
+        padding: 0 20px;
+      }
+
+      .hero {
+        height: 300px;
+      }
+
+      .container {
+        max-width: 720px;
+        padding: 20px;
+      }
+
+      .product-card {
+        flex: 1 1 calc(50% - 15px);
+        
+      }
+
+      .carousel-item {
+        width: 250px;
+      
+      }
+
+      .footer {
+        padding: 30px 20px;
+      }
+    }
+
+    /* Larger Tablets or Small Laptops */
+    @media (min-width: 1024px) {
+      .nav-container {
+        max-width: 960px;
+      }
+
+      .container {
+        max-width: 960px;
+      }
+
+      .product-card {
+        flex: 0 0 calc(33.33% - 15px);
+      }
+
+      .carousel-item {
+        width: 300px;
+      }
+    
+      
+    }
+    /* Footer */
+.footer {
+    background-color: #232f3e;
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+}
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+.footer-links a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+  
+    
+</style>
+</head>
+<body>
+
+<header>
+<div class="header-top">
+  
+        <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  
+    <div class="filter-btn">⚖️ <span>Filter</span></div>
+  
+</div>
+ 
+<!-- Bottom row -->
+<div class="header-bottom">
+    <div class="logo">
+      <div class="picha">
+      <img src="logo.png" alt="my logo">
+      
+    </div> 
+    KARIAKOOSOCIAL
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Search...">
+        <button type="submit">🔎</button>
+    </div>
+</div>
+</header>
+
+
+<!-- Sidebar -->
+<div id="sidebar">
+    <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    <div class="sidebar-link"><a href="#">Home</a></div>
+    <div class="sidebar-link"><a href="#">About Us</a></div>
+    <div class="sidebar-link"><a href="#">Contact</a></div>
+    <div class="sidebar-link"><a href="#">Profile</a></div>
+</div>
+<!-- Scrollable Navigation Links -->
+<div class="scroll-nav">
+  <a href="fast.html">Get it Fast</a>
+  <a href="new.html">New Arrivals</a>
+  <a href="school.html">Back to School</a>
+  <a href="offers.html">Special Offers</a>
+  <a href="clearance.html">Clearance</a>
+  <a href="fashion.html">Fashion</a>
+  <a href="electronics.html">Electronics</a>
+  <a href="home.html">Home & Living</a>
+  <a href="more.html">More...</a>
+</div> 
+
+
+<!-- Hero Section -->
+  <section class="hero">
+    <img src="product.jpg" alt="Hero Banner">
+    <div class="hero-text">
+      <p>Shop the best deals on kariakoo</p>
+    </div>
+  </section>
+ 
+
+  <!-- Featured Products Carousel (Static) -->
+  <section class="carousel">
+    <div class="container">
+      <h2>Featured Products</h2>
+      <div class="carousel-container">
+        <div class="carousel-item">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="carousel-item">
+          <img src="laptop.jpg" alt="Laptop">
+          <h3>Laptop</h3>
+          <p>$999.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="carousel-item">
+          <img src="Headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="carousel-item">
+      <img src="watch.jpg" alt="Smartwatch">
+          <h3>Smartwatch</h3>
+          <p>$199.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Cards -->
+  <section class="products">
+    <div class="container">
+      <h2>Popular Products</h2>
+      <div class="flex-container">
+        <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="laptop.jpg" alt="Laptop">
+          <h3>Laptop</h3>
+          <p>$999.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        
+            <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+           <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div> 
+            <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        
+          <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>  
+        <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+          </div>
+         <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+          </div>
+          <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+          </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <!-- Featured Products Carousel (Static) -->
+  <section class="carousel">
+    <div class="container">
+      <h2>Featured Products</h2>
+      <div class="carousel-container">
+        <div class="carousel-item">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="carousel-item">
+          <img src="laptop.jpg" alt="Laptop">
+          <h3>Laptop</h3>
+          <p>$999.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="carousel-item">
+          <img src="Headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="carousel-item">
+      <img src="watch.jpg" alt="Smartwatch">
+          <h3>Smartwatch</h3>
+          <p>$199.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <!-- Product Cards -->
+  <section class="products">
+    <div class="container">
+      <h2>others Products</h2>
+      <div class="flex-container">
+        <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="laptop.jpg" alt="Laptop">
+          <h3>Laptop</h3>
+          <p>$999.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        
+            <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+           <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div> 
+            <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        
+          <div class="product-card">
+          <img src="headphone.jpg" alt="Headphones">
+          <h3>Headphones</h3>
+          <p>$49.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>  
+        <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+          </div>
+         <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+          </div>
+          <div class="product-card">
+          <img src="phone.jpg" alt="Smartphone">
+          <h3>Smartphone</h3>
+          <p>$299.99</p>
+          <button class="add-to-cart">Add to Cart</button>
+          </div>
+      </div>
+    </div>
+  </section>
+  
+  
+<!-- Footer -->
+<div class="footer">
+  <p>&copy; 2025 KariakooSocial</p>
+  <div class="footer-links">
+    <a href="#">Home</a>
+    <a href="#">Products</a>
+    <a href="#">Contact</a>
+  </div>
+</div>
+  
+<script>
+    // Static Cart Counter (Demo)
+  let cartCount = 0;
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', () => {
+      cartCount++;
+      document.querySelector('.cart-count').textContent = cartCount;
+    });
+  });
+  
+  // Sidebar Toggle
+function toggleSidebar() {
+    let sidebar = document.getElementById("sidebar");
+    sidebar.style.width = (sidebar.style.width === "250px") ? "0" : "250px";
+}
+
+  // Basic Search (Client-Side)
+  const products = [
+    { name: 'Smartphone', price: 299.99 },
+    { name: 'Laptop', price: 999.99 },
+    { name: 'Headphones', price: 49.99 },
+    { name: 'Smartwatch', price: 199.99 }
+  ];
+  document.querySelector('.search-input').addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const results = products.filter(product => product.name.toLowerCase().includes(query));
+    console.log(results); // Unaweza add div kwa search results
+  });
+
+</script>
+</body>
+</html>
