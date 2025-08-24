@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar with Language Toggle</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 320px; /* Slightly wider for balance */
+            background: linear-gradient(135deg, #ffffff, #e6f0fa); /* Subtle gradient */
+            padding: 25px;
+            border-radius: 15px; /* Softer rounded corners */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Deeper shadow for depth */
+            font-family: 'Poppins', sans-serif; /* Modern font */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 20px;
+        }
+
+        .sidebar:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Language Toggle Button */
+        .language-toggle {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .language-toggle button {
+            background: linear-gradient(45deg, #007bff, #00c4b4); /* Vibrant gradient */
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px; /* Pill-shaped button */
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .language-toggle button:hover {
+            background: linear-gradient(45deg, #0056b3, #009688);
+            transform: scale(1.05); /* Slight scale on hover */
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        .language-toggle button:active {
+            transform: scale(0.95); /* Click feedback */
+        }
+
+        /* About Us Section */
+        .about-us {
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in; /* Fade-in animation */
+        }
+
+        .about-us h3 {
+            color: #1a2a44; /* Darker, elegant color */
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .about-us h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #007bff, #00c4b4); /* Gradient underline */
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .about-us p {
+            color: #4a5568; /* Softer text color */
+            font-size: 1em;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .about-us ul {
+            list-style-type: none; /* Custom bullets */
+            padding-left: 0;
+        }
+
+        .about-us li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            color: #4a5568;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .about-us li::before {
+            content: '✔'; /* Custom checkmark bullet */
+            position: absolute;
+            left: 0;
+            color: #00c4b4; /* Vibrant bullet color */
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                max-width: 300px;
+                margin: 20px auto;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <!-- Language Toggle Button -->
+        <div class="language-toggle">
+            <button id="toggle-lang">Switch to Swahili</button>
+        </div>
+
+        <!-- About Us Section -->
+        <div class="about-us" id="about-us">
+            <h3 id="about-heading">About Us</h3>
+            <p id="about-text">This is a digital marketplace for buying and selling products to customers. We provide a simple and secure platform for online business and shopping.</p>
+            <ul id="about-list">
+                <li>Business owners can create an account and post various products to reach new customers.</li>
+                <li>Our website has over 10,000 users and is highly secure, with measures to protect your data.</li>
+                <li>Customers are free to choose their preferred products and enjoy a 20% discount from sellers.</li>
+            </ul>
+        </div>
+    </aside>
+
+    <script>
+        // JavaScript to handle language toggle
+        const toggleButton = document.getElementById('toggle-lang');
+        const aboutHeading = document.getElementById('about-heading');
+        const aboutText = document.getElementById('about-text');
+        const aboutList = document.getElementById('about-list');
+
+        // Language content
+        const content = {
+            en: {
+                button: 'Switch to Swahili',
+                heading: 'About Us',
+                text: 'This is a digital marketplace for buying and selling products to customers. We provide a simple and secure platform for online business and shopping.',
+                list: [
+                    'Business owners can create an account and post various products to reach new customers.',
+                    'Our website has over 10,000 users and is highly secure, with measures to protect your data.',
+                    'Customers are free to choose their preferred products and enjoy a 20% discount from sellers.'
+                ]
+            },
+            sw: {
+                button: 'Switch to English',
+                heading: 'Kuhusu Sisi',
+                text: 'Hii ni website ya kidijitali ya kuuza na kununua bidhaa kwa wateja. Tunatoa jukwaa rahisi na salama kwa biashara na ununuzi mtandaoni.',
+                list: [
+                    'Mfanyabiashara anaweza kufungua akaunti na kuposti bidhaa mbalimbali ili kupata wateja wapya.',
+                    'Website hii ina watumiaji zaidi ya elfu 10 na iko salama zaidi, na hatua za usalama ili kulinda data yako.',
+                    'Mteja anaruhusiwa kuchagua bidhaa anayoipenda na kupata punguzo la 20% kutoka kwa mfanyabiashara.'
+                ]
+            }
+        };
+
+        // Check if there's a saved language preference
+        let currentLang = localStorage.getItem('language') || 'en';
+
+        // Function to update content
+        function updateContent(lang) {
+            toggleButton.textContent = content[lang].button;
+            aboutHeading.textContent = content[lang].heading;
+            aboutText.textContent = content[lang].text;
+
+            // Clear and repopulate the list
+            aboutList.innerHTML = '';
+            content[lang].list.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                aboutList.appendChild(li);
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Save language preference
+            localStorage.setItem('language', lang);
+        }
+
+        // Initialize content based on saved or default language
+        updateContent(currentLang);
+
+        // Toggle language on button click
+        toggleButton.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'sw' : 'en';
+            updateContent(currentLang);
+        });
+    </script>
+
+</body>
+</html>
