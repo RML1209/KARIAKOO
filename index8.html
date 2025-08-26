@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile with Language Toggle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f1f2f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+            /* Close Button Styling */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 1px;
+    background: #ff4d4d; /* Red background for visibility */
+    color: #fff;
+    border: none;
+    border-radius: 50%; /* Circular button */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn:hover {
+    background: #cc0000; /* Darker red on hover */
+    transform: scale(1.1);
+}
+
+.close-btn:active {
+    transform: scale(0.95); /* Slight press effect */
+}
+
+    /* Profile Card */
+    .user-profile-container {
+      max-width: 400px;
+      width: 100%;
+      background: linear-gradient(135deg, #ffffff, #e6f0fa);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .user-profile-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Language Toggle */
+    .language-toggle button {
+      background: linear-gradient(45deg, #007bff, #00c4b4);
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    .language-toggle button:hover {
+      background: linear-gradient(45deg, #0056b3, #009688);
+      transform: scale(1.05);
+    }
+
+    .user-profile-content img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 4px solid #00c4b4;
+    }
+
+    .user-profile-content h2 {
+      color: #1a2a44;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-in forwards;
+      animation-delay: 0.2s;
+    }
+
+    .user-profile-content p {
+      color: #4a5568;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-in forwards;
+    }
+
+    .user-profile-content p#user-type {
+      animation-delay: 0.4s;
+    }
+
+    .user-profile-content p#user-stats {
+      animation-delay: 0.6s;
+    }
+
+    .user-profile-content button {
+      background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+      opacity: 0;
+      animation: fadeIn 0.5s ease-in forwards;
+      animation-delay: 0.8s;
+    }
+
+    .user-profile-content button:hover {
+      background: linear-gradient(45deg, #e55353, #e07b39);
+      transform: scale(1.05);
+    }
+
+    /* Animation for fade-in effect */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Action Buttons */
+    .action-profile-container
+  {
+      max-width: 400px;
+      width: 100%;
+      background: linear-gradient(135deg, #ffffff, #e6f0fa);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 50px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+  }
+    .button-container {
+      display: flex;
+      gap: 10px;
+      padding: 20px;
+      justify-content: center;
+      width: 100%;
+      max-width: 400px;
+      margin-top: -20px; /* Pull buttons closer to the user type */
+    }
+
+    .button-container button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+      flex: 1; /* Make buttons take equal width */
+      max-width: 120px; /* Limit max width for balance */
+    }
+
+    .add-btn { background: #0984e3; }
+    .add-btn:hover { background: #075ea6; }
+
+    .view-btn { background: #00b894; }
+    .view-btn:hover { background: #008f6b; }
+
+    .logout-btn { background: #d63031; }
+    .logout-btn:hover { background: #a71d1d; }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .button-container {
+        flex-direction: row; /* Keep horizontal on small screens */
+        gap: 5px;
+      }
+
+      .button-container button {
+        padding: 10px 15px;
+        font-size: 14px;
+        max-width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <button class="close-btn" id="close-btn">✕</button>
+
+  <!-- User Profile -->
+  <div class="user-profile-container">
+    <div class="language-toggle">
+      <button id="toggle-lang">Switch to Swahili</button>
+    </div>
+    <div class="user-profile-content">
+      <img src="headphone.jpg" alt="User Profile Picture">
+      <h2 id="user-name">John Doe</h2>
+      <p id="user-type">Buyer</p>
+      <p id="user-stats">5 Purchases Made</p>
+      <button id="user-action">View Purchases</button>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-profile-container">
+  <div class="button-container">
+    <button class="add-btn"><a href="load.html">ADD POST</a></button>
+    <button class="view-btn">VIEW POST</button>
+    <button class="logout-btn">LOGOUT</button>
+  </div>
+  </div>
+
+  <script>
+    // Elements
+    const toggleButton = document.getElementById('toggle-lang');
+    const userName = document.getElementById('user-name');
+    const userType = document.getElementById('user-type');
+    const userStats = document.getElementById('user-stats');
+    const userAction = document.getElementById('user-action');
+
+    // Dummy user
+    const user = { name: 'John Doe', type: 'buyer' };
+
+    // Content
+    const content = {
+      en: {
+        button: 'Switch to Swahili',
+        profile: {
+          buyer: { type: 'Buyer', stats: '5 Purchases Made', action: 'View Purchases' },
+          seller: { type: 'Seller', stats: '10 Products Listed', action: 'Manage Listings' }
+        }
+      },
+      sw: {
+        button: 'Switch to English',
+        profile: {
+          buyer: { type: 'Mnunuzi', stats: 'Manunuzi 5 Yaliyofanyika', action: 'Angalia Manunuzi' },
+          seller: { type: 'Muuzaji', stats: 'Bidhaa 10 Zilizoorodheshwa', action: 'Dhibiti Orodha' }
+        }
+      }
+    };
+
+    let currentLang = localStorage.getItem('language') || 'en';
+
+    function updateContent(lang) {
+      toggleButton.textContent = content[lang].button;
+      userName.textContent = user.name;
+      userType.textContent = content[lang].profile[user.type].type;
+      userStats.textContent = content[lang].profile[user.type].stats;
+      userAction.textContent = content[lang].profile[user.type].action;
+      localStorage.setItem('language', lang);
+    }
+
+    updateContent(currentLang);
+
+    toggleButton.addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'sw' : 'en';
+      updateContent(currentLang);
+    });
+    
+            // Close button functionality
+const closeButton = document.getElementById('close-btn');
+closeButton.addEventListener('click', () => {
+    window.history.back(); // Go back to the previous page
+});
+
+  </script>
+</body>
+</html>

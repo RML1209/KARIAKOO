@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KariaKooSocial — Post Product</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #ff4d4f; /* Vibrant red for buttons and highlights */
+  --accent: #40c4ff; /* Bright cyan for secondary accents */
+  --bg: #121212; /* Dark gray for background */
+  --card: #1e1e1e; /* Slightly lighter dark for cards */
+  --muted: #b0bec5; /* Soft blue-gray for muted text */
+  --text: #ffffff; /* Pure white for text */
+  --border: #37474f; /* Darker blue-gray for borders */
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(145deg, var(--bg) 0%, #1c2526 100%);
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.wrap:hover {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+}
+
+h1 {
+  font-size: 28px;
+  margin: 0 0 20px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.meta-grid input,
+.meta-grid select,
+.meta-grid textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #252525;
+  color: var(--text);
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.meta-grid input:focus,
+.meta-grid select:focus,
+.meta-grid textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(64, 196, 255, 0.4);
+}
+
+.meta-grid textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+@media (min-width: 720px) {
+  .meta-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .meta-grid textarea {
+    grid-column: 1 / -1;
+  }
+}
+
+.drop {
+  border: 2px dashed var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  text-align: center;
+  background: #252525;
+  transition: all 0.3s ease;
+}
+
+.drop.dragover {
+  border-color: var(--primary);
+  background: rgba(255, 77, 79, 0.1);
+  transform: scale(1.01);
+}
+
+.drop input[type="file"] {
+  display: none;
+}
+
+.drop .btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--primary);
+  color: var(--text);
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.drop .btn:hover {
+  background: #e63946;
+  transform: translateY(-3px);
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 10px;
+  opacity: 0.85;
+}
+
+.preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.card {
+  background: #1b1b1b;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.thumb {
+  width: 100%;
+  height: 130px;
+  background: #151515;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumb img,
+.thumb video,
+.thumb audio {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.small {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.danger {
+  color: #ff1744;
+}
+
+.bar {
+  height: 14px;
+  background: var(--border);
+  border-radius: 999px;
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.bar > div {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  transition: width 0.5s ease;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+}
+
+button.primary {
+  background: var(--primary);
+  color: var(--text);
+  border: none;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+button.primary:hover {
+  background: #e63946;
+  transform: translateY(-3px);
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--border);
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+button.secondary:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.msg {
+  margin-top: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Post a Product</h1>
+
+  <!-- Product metadata -->
+  <div class="meta-grid">
+    <input id="title" placeholder="Product title (e.g., iPhone 13 Pro) *" required />
+    <input id="price" type="number" step="0.01" min="0" placeholder="Price (e.g., 299.99) *" required />
+    <select id="category" required>
+      <option value="">Choose category *</option>
+      <option>Electronics</option>
+      <option>Fashion</option>
+      <option>Beauty & Cosmetics</option>
+      <option>Home & Living</option>
+      <option>Food & Restaurant</option>
+      <option>General Store</option>
+    </select>
+    <input id="location" placeholder="Location (e.g., Kariakoo, Dar)"/>
+    <textarea id="description" placeholder="Description (condition, highlights, warranty, etc.)"></textarea>
+  </div>
+
+  <!-- Uploader -->
+  <div id="drop" class="drop">
+    <p><strong>Upload media</strong> — images, video, or audio</p>
+    <label class="btn" for="fileInput">Choose files</label>
+    <input id="fileInput" type="file" accept="image/*,video/*,audio/*" multiple />
+    <div class="hint">Max 10 files • Max 20MB per file • Allowed: JPG/PNG/WEBP, MP4/MOV, MP3/WAV/M4A</div>
+  </div>
+
+  <div id="preview" class="preview"></div>
+
+  <!-- Progress -->
+  <div class="bar" aria-label="upload progress"><div id="progress"></div></div>
+
+  <div class="actions">
+    <button class="secondary" id="clearBtn">Clear</button>
+    <button class="primary" id="uploadBtn">Upload</button>
+  </div>
+
+  <div class="msg" id="msg"></div>
+</div>
+
+<script>
+  // ===== Config =====
+  const MAX_FILES = 10;
+  const MAX_SIZE = 20 * 1024 * 1024; // 20MB
+  const ACCEPT_EXT = [
+    'image/jpeg','image/png','image/webp',
+    'video/mp4','video/quicktime', // mp4, mov
+    'audio/mpeg','audio/wav','audio/x-wav','audio/mp4' // mp3, wav, m4a
+  ];
+
+  // ===== Elements =====
+  const drop = document.getElementById('drop');
+  const input = document.getElementById('fileInput');
+  const preview = document.getElementById('preview');
+  const progressBar = document.getElementById('progress');
+  const uploadBtn = document.getElementById('uploadBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const msg = document.getElementById('msg');
+
+  let files = [];
+
+  // ===== Helpers =====
+  const fmt = (bytes)=>{
+    const units=['B','KB','MB','GB']; let i=0;
+    while(bytes>=1024 && i<units.length-1){ bytes/=1024;i++; }
+    return `${bytes.toFixed( (i?1:0) )} ${units[i]}`;
+  }
+
+  function renderPreview(){
+    preview.innerHTML = '';
+    files.forEach((f, idx)=>{
+      const card = document.createElement('div'); card.className='card';
+      const th = document.createElement('div'); th.className='thumb';
+      if(f.type.startsWith('image/')){
+        const img = document.createElement('img'); img.src = URL.createObjectURL(f); th.appendChild(img);
+      } else if(f.type.startsWith('video/')){
+        const vid = document.createElement('video'); vid.src = URL.createObjectURL(f); vid.controls = true; th.appendChild(vid);
+      } else if(f.type.startsWith('audio/')){
+        const aud = document.createElement('audio'); aud.src = URL.createObjectURL(f); aud.controls = true; th.appendChild(aud);
+      } else {
+        th.textContent = 'Unsupported';
+      }
+      const meta = document.createElement('div'); meta.className='small'; meta.textContent = `${f.name} • ${fmt(f.size)}`;
+      const rm = document.createElement('button'); rm.textContent='Remove'; rm.className='secondary'; rm.onclick=()=>{ files.splice(idx,1); renderPreview(); }
+      card.appendChild(th); card.appendChild(meta); card.appendChild(rm);
+      preview.appendChild(card);
+    });
+  }
+
+  function validateAndAdd(list){
+    const startLen = files.length;
+    for(const f of list){
+      if(files.length >= MAX_FILES){ toast(`Limit ${MAX_FILES} files reached`, true); break; }
+      if(!ACCEPT_EXT.includes(f.type)){ toast(`Blocked: ${f.name} (type ${f.type})`, true); continue; }
+      if(f.size > MAX_SIZE){ toast(`Too big: ${f.name} (${fmt(f.size)})`, true); continue; }
+      files.push(f);
+    }
+    if(files.length === startLen) return; // none added
+    renderPreview();
+  }
+
+  function toast(t, isErr=false){
+    msg.textContent = t; msg.style.color = isErr ? '#ff6b6b' : '#9be9a8';
+    setTimeout(()=>{ msg.textContent=''; }, 3500);
+  }
+
+  // ===== Drag & Drop =====
+  ;['dragenter','dragover'].forEach(ev=>{
+    drop.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); drop.classList.add('dragover'); });
+  });
+  ;['dragleave','drop'].forEach(ev=>{
+    drop.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); drop.classList.remove('dragover'); });
+  });
+  drop.addEventListener('drop', e=>{ validateAndAdd(e.dataTransfer.files); });
+
+  // File picker
+  input.addEventListener('change', e=>{ validateAndAdd(e.target.files); input.value=''; });
+
+  // Clear
+  clearBtn.addEventListener('click', ()=>{
+    files = []; renderPreview(); progressBar.style.width='0%';
+  });
+
+  // ===== Upload =====
+  uploadBtn.addEventListener('click', async ()=>{
+    // Basic metadata
+    const title = document.getElementById('title').value.trim();
+    const price = document.getElementById('price').value.trim();
+    const category = document.getElementById('category').value.trim();
+    const location = document.getElementById('location').value.trim();
+    const description = document.getElementById('description').value.trim();
+
+    if(!title || !price || !category){ toast('Title, price and category are required', true); return; }
+    if(files.length===0){ toast('Please add at least one media file', true); return; }
+
+    const fd = new FormData();
+    fd.append('title', title);
+    fd.append('price', price);
+    fd.append('category', category);
+    fd.append('location', location);
+    fd.append('description', description);
+    files.forEach((f, i)=> fd.append('media', f, f.name));
+
+    // Use XMLHttpRequest for progress
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/products'); // backend endpoint
+    xhr.upload.onprogress = (e)=>{
+      if(e.lengthComputable){
+        const pct = Math.round((e.loaded/e.total)*100);
+        progressBar.style.width = pct + '%';
+      }
+    };
+    xhr.onload = ()=>{
+      try{
+        const res = JSON.parse(xhr.responseText);
+        if(res.status==='success'){
+          toast('Uploaded successfully ✅');
+          // optional: reset form
+          // files=[]; renderPreview(); progressBar.style.width='0%';
+        } else {
+          toast(res.message || 'Upload error', true);
+        }
+      }catch(_){
+        toast('Server error', true);
+      }
+    };
+    xhr.onerror = ()=> toast('Network error', true);
+    xhr.send(fd);
+  });
+</script>
+</body>
+</html>
