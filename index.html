@@ -46,48 +46,101 @@ header{
 
 
 /* Sidebar */
-#sidebar {
-    height: 80%;
-    width: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color:transparent;
-    overflow-x: hidden;
-    transition: 0.3s;
-    padding-top: 60px;
-    z-index: 1000;
-    border-radius:10px;
-}
-#sidebar a {
-    padding: 15px 25px;
-    text-decoration: none;
-    font-size: 18px;
-    color: white;
-    display: block;
-    transition: 0.2s;
-    text-align:center;
-}
-#sidebar a:hover {
-    background: #575757;
-}
-#sidebar .close-btn {
-    position: absolute;
-    top: 20px;
-    right: 15px;
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
-}
+ .sidebar{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 75%;
+      max-width: 250px;
+      background-color: white;
+      color: white;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 40;
+      padding: 20px;
+      overflow-y: auto;
+    }
 
-.sidebar-link{
-  padding:1px;
-  background-color:black;
-  border-radius:30px;
-  color:white;
-  margin:5px;
+    .sidebar.open {
+      transform: translateX(0);
+    }
 
-}
+    /* Sidebar Content */
+    .sidebar h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+      color: black;
+      text-decoration: none;
+      display: block;
+      padding: 8px;
+      border-radius: 4px;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #374151;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 50;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: block;
+      color: black; /* Added to make the button visible */
+    }
+
+    /* Overlay for Mobile */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color:transparent;
+      z-index: 30;
+      display: none;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    
+
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+      .sidebar {
+        transform: translateX(0);
+        width: 250px;
+      }
+
+      .toggle-btn {
+        display: none;
+      }
+
+      .overlay {
+        display: none;
+      }
+
+  
+    }
 
 /* Filter button */
 .filter-btn {
@@ -714,6 +767,21 @@ header{
 
 
 <!-- Sidebar -->
+
+
+  <button class="toggle-btn" aria-label="Toggle Sidebar">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="index1.html">Sign in/sign up</a></li>
+      <li><a href="index8.html">Profile</a></li>
+      <li><a href="https://wa.me/qr/BWZOFMDAVIZEL1">Contact</a></li>
+      <li><a href="index4.html">About us</a></li>
+    </ul>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+    
 <div id="sidebar">
     <span class="close-btn" onclick="toggleSidebar()">&times;</span>
     <div class="sidebar-link"><a href="index1.html">sign in /sign up</a></div>
@@ -1033,11 +1101,25 @@ header{
     closeSidebar();
   });
   // Sidebar Toggle
-function toggleSidebar() {
-    let sidebar = document.getElementById("sidebar");
-    sidebar.style.width = (sidebar.style.width === "250px") ? "0" : "250px";
-}
 
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const sidebar = document.querySelector('#sidebar');
+    const overlay = document.querySelector('#overlay');
+  
+    // Toggle Sidebar
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('show');
+      toggleBtn.textContent = sidebar.classList.contains('open') ? ' ' : '☰';
+    });
+  
+    // Close Sidebar when Overlay is Clicked
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+      toggleBtn.textContent = '☰';
+    });
+    
   // Basic Search (Client-Side)
 
         // JavaScript for search functionality
