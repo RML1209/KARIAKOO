@@ -46,7 +46,7 @@ header{
 
 
 /* Sidebar */
- .sidebar{
+ .sidebarz{
       position: fixed;
       top: 0;
       left: 0;
@@ -62,21 +62,21 @@ header{
       overflow-y: auto;
     }
 
-    .sidebar.open {
+    .sidebarz.open {
       transform: translateX(0);
     }
 
     /* Sidebar Content */
-    .sidebar h2 {
+    .sidebarz h2 {
       font-size: 1.5rem;
       margin-bottom: 20px;
     }
 
-    .sidebar ul {
+    .sidebarz ul {
       list-style: none;
     }
 
-    .sidebar ul li {
+    .sidebarz ul li {
       margin-bottom: 10px;
     }
 
@@ -766,12 +766,12 @@ header{
 </header>
 
 
-<!-- Sidebar -->
+<!-- Sidebarz -->
 
 
-  <button class="toggle-btn" aria-label="Toggle Sidebar">☰</button>
+  <button class="toggle-btn" aria-label="Toggle Sidebarz">☰</button>
 
-  <div class="sidebar" id="sidebar">
+  <div class="sidebarz" id="sidebarz">
     <ul>
       <li><a href="index1.html">Sign in/sign up</a></li>
       <li><a href="index8.html">Profile</a></li>
@@ -1093,22 +1093,22 @@ header{
 
     closeSidebar();
   });
-  // Sidebar Toggle
+  // Sidebarz Toggle
 
     const toggleBtn = document.querySelector('.toggle-btn');
-    const sidebar = document.querySelector('#sidebar');
+    const sidebarz = document.querySelector('#sidebarz');
     const overlay = document.querySelector('#overlay');
   
-    // Toggle Sidebar
+    // Toggle Sidebarz
     toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+      sidebarz.classList.toggle('open');
       overlay.classList.toggle('show');
-      toggleBtn.textContent = sidebar.classList.contains('open') ? ' ' : '☰';
+      toggleBtn.textContent = sidebarz.classList.contains('open') ? ' ' : '☰';
     });
   
     // Close Sidebar when Overlay is Clicked
     overlay.addEventListener('click', () => {
-      sidebar.classList.remove('open');
+      sidebarz.classList.remove('open');
       overlay.classList.remove('show');
       toggleBtn.textContent = '☰';
     });
