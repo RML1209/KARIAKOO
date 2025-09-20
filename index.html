@@ -3,215 +3,204 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsive Header</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>KARIAKOO_SOCIAL.COM</title>
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    line-height: 6px;
-    font-family: Arial,Times New Roman,Sans-Serif;
-}
-body {
-    background-color:black;
-    color: white;
-    font-family: Arial, sans-serif;
-}
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {font-family: Arial, sans-serif; background: #F9FAFB; color: #fff; line-height: 1.6;}
 
-/* Top row with menu and filter */
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: grey;
-}
-header{
-  background-color: darkblue;
-  margin-bottom: 0px;
-
+    /* Header top */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      background: grey;
+    }
   
 
-}
+    /* Buttons */
+    .open-btn, .filter-btn {
+      padding: 10px 12px;
+      color: darkblue;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-/* Menu icon */
-.menu-icon {
-    font-size: 25px;
-    cursor: pointer;
-    
-    
-  
-}
-    
-
-
-/* Sidebarz */
- .sidebarz{
+    /* Shared sidebar style */
+    .sidebar, .filterbar {
+      height: 100%;
+      width: 300px;
+      background-color: #f4f4f4;
+      color: #000;
       position: fixed;
       top: 0;
       left: 0;
-      height: 100%;
-      width: 75%;
-      max-width: 250px;
-      background-color: white;
-      color: white;
-      transform: translateX(-100%);
+      z-index: 1000;
+      transform: translateX(-110%);
       transition: transform 0.3s ease-in-out;
-      z-index: 40;
-      padding: 20px;
       overflow-y: auto;
+      padding: 20px;
     }
+    .sidebar.active, .filterbar.active {transform: translateX(0);}
 
-    .sidebarz.open {
-      transform: translateX(0);
+    /* Backdrop for both */
+    .sidebar-backdrop, .filterbar-backdrop {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
     }
+    .sidebar-backdrop.active, .filterbar-backdrop.active {display: block;}
 
-    /* Sidebar Content */
-    .sidebarz h2 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
+    /* Sidebar content */
+    .account-icon {
+      text-align: center;
+      margin: 20px 0;
     }
-
-    .sidebarz ul {
-      list-style: none;
-    }
-
-    .sidebarz ul li {
+    .account-icon i {
+      font-size: 65px;
+      color:#f5f5f;
+      display: block;
       margin-bottom: 10px;
     }
 
-    .sidebarz ul li a {
+    .login-text {
+      font-size: 20px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       color: black;
+      background-color: ;
+      
+    }
+    .login-text i {
+      color: green;
+      font-size: 22px;
+    }
+    .login-text a {
       text-decoration: none;
-      display: block;
-      padding: 8px;
-      border-radius: 4px;
+      background-color: darkblue;
+      padding: 10px;
+      border-radius: 10px;
+      color: white;
     }
 
-    .sidebarz ul li a:hover {
-      background-color: #374151;
-    }
+  
 
-    /* Toggle Button */
-    .toggle-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 50;
-      background: none;
+    /* Sidebar links */
+    .sidebar-links ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar-links li {
+      margin: 15px 0;
+      font-size: 20px;
+      border-radius: 10px;
       border: none;
-      font-size: 1.5rem;
+      padding: 10px;
+      background-color: green;
+      text-align: center;
+    }
+    .sidebar-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    .sidebar-links li:hover {
+      background-color: blue;
+    }
+/* Animation kwa items ndani ya sidebar */
+.sidebar.active .account-icon,
+.sidebar.active .login-text,
+.sidebar.active .sidebar-links li {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s ease;
+}
+
+/* Mwanzo vitakuwa vimefichwa juu */
+.account-icon,
+.login-text,
+.sidebar-links li {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+/* Delay kidogo kwa kila element ili zije kwa mfuatano */
+.sidebar.active .account-icon { transition-delay: 0.1s; }
+.sidebar.active .login-text { transition-delay: 0.2s; }
+.sidebar.active .sidebar-links li:nth-child(1) { transition-delay: 0.3s; }
+.sidebar.active .sidebar-links li:nth-child(2) { transition-delay: 0.4s; }
+.sidebar.active .sidebar-links li:nth-child(3) { transition-delay: 0.5s; }
+.sidebar.active .sidebar-links li:nth-child(4) { transition-delay: 0.6s; }
+/* ongeza kadri ya links ulizo nazo */
+
+    /* Filterbar form */
+    .filterbar form button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
       cursor: pointer;
-      display: block;
-      color: black; /* Added to make the button visible */
     }
-
-    /* Overlay for Mobile */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color:transparent;
-      z-index: 30;
-      display: none;
+    .filterbar input{
+      padding: 10px;
+      width: 90%;
+      margin: 10px;
     }
-
-    .overlay.show {
-      display: block;
+    .filterbar select{
+      padding: 10px;
+      width: 90%;
+      margin: 10px;
+      
     }
-
-    
-
-    /* Desktop Styles */
-    @media (min-width: 768px) {
-      .sidebarz {
-        transform: translateX(0);
-        width: 250px;
-      }
-
-      .toggle-btn {
-        display: none;
-      }
-
-      .overlay {
-        display: none;
-      }
-
-  
+    .apply-btn {
+      background: #28a745;
+      color: #fff;
+       padding:10px;
+        width: 30%;
     }
-
-/* Filter button */
-.filter-btn {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    cursor: pointer;
-    background: #444;
-    padding: 6px 10px;
-    border-radius: 6px;
-}
-.filter-btn span {
-    margin-left: 5px;
-    font-size: 14px;
-}
-    /*new filter*/
-        :root{
-      --accent:#007bff;
-      --accent-dark:#075ea6;
-      --card:#fff;
-      --bg:#f4f6f8;
-    }
-    
-  
-    .filter-toggle{
-      background:var(--accent);
-      color:#fff;
-      border:none;
-      padding:8px 14px;
-      border-radius:6px;
-      cursor:pointer;
-      font-weight:600;
-    }
-    .filter-toggle:hover{background:var(--accent-dark)}
-
-    /* Sidebar styles */
-    .backdrop{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.4);
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .25s ease;
-      z-index:45;
-    }
-    .backdrop.show{opacity:1; pointer-events:auto}
-
-    .sidebar{
-      position:fixed;
-      top:0; left:0; bottom:0;
-      width:320px;
-      max-width:90%;
-      background:var(--card);
-      box-shadow:2px 0 10px rgba(0,0,0,0.15);
-      transform:translateX(-110%);
-      transition:transform .25s ease;
-      z-index:50;
-      padding:20px;
-      overflow-y:auto;
-    }
-    .sidebar.open{transform:translateX(0)}
-
-    .sidebar h3{margin-top:0}
-    .sidebar label{display:block; margin-top:12px; font-weight:600}
-    .sidebar input,
-    .sidebar select{
-      width:90%;
+    .clear-btn {
+      background: #dc3545; 
+      color: #fff; 
       padding:10px;
-      margin-top:6px;
-      border-radius:6px;
-      border:1px solid #ddd;
+      width: 30%;
+    } 
+    /* Mwanzo: vitu vya filterbar vimefichwa */
+.filterbar input,
+.filterbar select,
+.filterbar form button {
+  opacity: 0;
+  transform: translateY(-20px); /* anza juu kidogo */
+  transition: all 0.4s ease;
+}
+
+/* Wakati filterbar inafunguka */
+.filterbar.active input,
+.filterbar.active select,
+.filterbar.active form button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay kidogo kwa mfuatano (stagger effect) */
+.filterbar.active input:nth-child(1) { transition-delay: 0.1s; }
+.filterbar.active input:nth-child(2) { transition-delay: 0.2s; }
+.filterbar.active select:nth-child(1) { transition-delay: 0.3s; }
+.filterbar.active .apply-btn { transition-delay: 0.4s; }
+.filterbar.active .clear-btn { transition-delay: 0.5s; }
+    
+    
+     .header-bottom{
+      background-color: #1E3A8A; 
+     
+      
     }
 
     .actions{
@@ -506,12 +495,15 @@ header{
       padding: 15px;
       margin: 0 auto;
     }
+    .container h2{
+      color: black;
+    }
 
     .products h2 {
       font-size: 1.5rem;
       margin-bottom: 10px;
       text-align: center;
-      color:yellow;
+      color:black;
     }
 
     .flex-container {
@@ -552,7 +544,7 @@ header{
 
     .add-to-cart {
       background-color: #ff9900;
-      color: white;
+      color: black;
       border: none;
       padding: 8px 10px;
       border-radius: 4px;
@@ -698,64 +690,47 @@ header{
 <body>
 
 <header>
-<div class="header-top">
-
-    
-<!-- Sidebarz -->
-
-
-  <button class="toggle-btn" aria-label="Toggle Sidebarz">☰</button>
-
-  <div class="sidebarz" id="sidebarz">
-    <ul>
-      <li><a href="index1.html">Sign in/sign up</a></li>
-      <li><a href="index8.html">Profile</a></li>
-      <li><a href="https://wa.me/qr/BWZOFMDAVIZEL1">Contact</a></li>
-      <li><a href="index4.html">About us</a></li>
-    </ul>
+ <!-- Header -->
+  <div class="header-top">
+    <button id="openSidebar" class="open-btn"><i class="fas fa-bars"></i></button>
+    <button id="openFilterbar" class="filter-btn"> <i class="fas fa-filter"></i>
+</button>
   </div>
 
-  <div class="overlay" id="overlay"></div>
-   <div class="menu-icon" onclick="toggleSidebar()"></div>
+
+ <!-- <div id="backdrop" class="backdrop"></div>-->
   
+<!--filter-->
+  <div id="filterbar" class="filterbar">
+    <h2>Filter Products</h2>
+    <form id="filterForm">
+      <label>Category</label><br>
+      <select id="category">
+        <option value="">All</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+      </select><br><br>
+
+      <label>Price Range</label><br>
+      <input type="number" id="minPrice" placeholder="Min"> 
       
-    <button id="openFilters" class="filter-toggle">Filters ▸</button>
+      <input type="number" id="maxPrice" placeholder="Max"><br><br>
 
-
-  <div id="backdrop" class="backdrop"></div>
-
-  <aside id="filterSidebar" class="sidebar">
-    <h3>Filters</h3>
-    <form id="filterForm" onsubmit="return false;">
-      <label for="category">Category</label>
-      <select id="category" name="category">
-        <option value="">All Categories</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Clothing">Clothing</option>
-        <option value="Groceries">Groceries</option>
-      </select>
-
-      
-      <input type="number" id="minPrice" name="minPrice" min="0" placeholder="Min Price (TZS)">
-
-      
-      <input type="number" id="maxPrice" name="maxPrice" min="0" placeholder="Max Price (TZS)">
-
-      <div class="actions">
-        <button type="button" id="clearBtn" class="btn ghost">Clear</button>
-        <button type="button" id="applyBtn" class="btn primary">Apply</button>
-      </div>
+      <button type="submit" class="apply-btn">Apply</button>
+      <button type="button" id="clearFilters" class="clear-btn">Clear</button>
     </form>
-  </aside> 
+  </div>
+  <div id="filterbarBackdrop" class="filterbar-backdrop"></div>
+
   
-</div>
+
  
 <!-- Bottom row -->
 <div class="header-bottom">
     <div class="logo">
       <div class="picha">
       <img src="logo.png" alt="my logo">
-    
+      
     </div> <p>
     KARIAKOOSOCIAL</p>
     </div>
@@ -782,7 +757,28 @@ header{
 </header>
 
 
-    
+<!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="account-icon">
+      <i class="fas fa-user-circle"></i>
+    </div>
+
+    <div class="login-text">
+      <a href="index1.html"><i class="fas fa-sign-in-alt"></i> sign in / sign up</a>
+    </div>
+
+  
+
+    <div class="sidebar-links">
+      <ul>
+        <li><a href="index4.html">About Us</a></li>
+        <li><a href="index8.html">Profile</a></li>
+        <li><a href="">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
 <!-- Scrollable Navigation Links -->
 <div class="scroll-nav">
   <a href="fast.html">Get it Fast</a>
@@ -1048,72 +1044,37 @@ header{
       document.querySelector('.cart-count').textContent = cartCount;
     });
   });
-  //filter
-
-    
-  const openBtn = document.getElementById('openFilters');
-  const backdrop = document.getElementById('backdrop');
-  const sidebar = document.getElementById('filterSidebar');
-  const clearBtn = document.getElementById('clearBtn');
-  const applyBtn = document.getElementById('applyBtn');
-  const form = document.getElementById('filterForm');
-
-  function openSidebar(){
-    sidebar.classList.add('open');
-    backdrop.classList.add('show');
-  }
-  function closeSidebar(){
-    sidebar.classList.remove('open');
-    backdrop.classList.remove('show');
-  }
-
-  openBtn.addEventListener('click', openSidebar);
-  backdrop.addEventListener('click', closeSidebar);
-
-  clearBtn.addEventListener('click', ()=> form.reset());
-
-  applyBtn.addEventListener('click', ()=>{
-    const formData = new FormData(form);
-    const filters = Object.fromEntries(formData.entries());
-    console.log("Filters applied:", filters);
-
-    // ==== Here you will send filters to your backend (Django) ====
-    // Example with fetch:
-    /*
-    fetch('/api/products/filter/', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(filters)
-    })
-    .then(res=>res.json())
-    .then(data=>{
-      console.log("Products from DB:", data);
-      // TODO: display them on page
+   // Sidebar functionality
+    const sidebar = document.getElementById("sidebar");
+    const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+    document.getElementById("openSidebar").addEventListener("click", () => {
+      sidebar.classList.add("active");
+      sidebarBackdrop.classList.add("active");
     });
-    */
-
-    closeSidebar();
-  });
-  // Sidebarz Toggle
-
-    const toggleBtn = document.querySelector('.toggle-btn');
-    const sidebarz = document.querySelector('#sidebarz');
-    const overlay = document.querySelector('#overlay');
-  
-    // Toggle Sidebarz
-    toggleBtn.addEventListener('click', () => {
-      sidebarz.classList.toggle('open');
-      overlay.classList.toggle('show');
-      toggleBtn.textContent = sidebarz.classList.contains('open') ? ' ' : '☰';
+    sidebarBackdrop.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      sidebarBackdrop.classList.remove("active");
     });
-  
-    // Close Sidebar when Overlay is Clicked
-    overlay.addEventListener('click', () => {
-      sidebarz.classList.remove('open');
-      overlay.classList.remove('show');
-      toggleBtn.textContent = '☰';
+
+    // Filterbar functionality
+    const filterbar = document.getElementById("filterbar");
+    const filterbarBackdrop = document.getElementById("filterbarBackdrop");
+    document.getElementById("openFilterbar").addEventListener("click", () => {
+      filterbar.classList.add("active");
+      filterbarBackdrop.classList.add("active");
     });
-    
+    filterbarBackdrop.addEventListener("click", () => {
+      filterbar.classList.remove("active");
+      filterbarBackdrop.classList.remove("active");
+    });
+
+    // Clear Filters functionality
+    document.getElementById("clearFilters").addEventListener("click", () => {
+      document.getElementById("category").value = "";
+      document.getElementById("minPrice").value = "";
+      document.getElementById("maxPrice").value = "";
+    });
+
   // Basic Search (Client-Side)
 
         // JavaScript for search functionality
