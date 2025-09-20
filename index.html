@@ -8,6 +8,39 @@
 <style>
     * {margin: 0; padding: 0; box-sizing: border-box;}
     body {font-family: Arial, sans-serif; background: #F9FAFB; color: #fff; line-height: 1.6;}
+    
+    
+  /* Default (Light Mode) */
+  body.light-mode {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  /* Dark Mode */
+  body.dark-mode {
+    background: #121212;
+    color: #ffffff;
+  }
+
+  /* Switch Button */
+  .theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 15px;
+
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    background: #0088cc;
+    color: white;
+    transition: background 0.3s;
+  }
+
+  .theme-toggle:hover {
+    background: #005f88;
+  }
 
     /* Header top */
     .header-top {
@@ -687,7 +720,7 @@
     
 </style>
 </head>
-<body>
+<body class="light-mode">
 
 <header>
  <!-- Header -->
@@ -759,6 +792,10 @@
 
 <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
+    
+      <button class="theme-toggle" onclick="toggleTheme()">🌙 Night Mode</button>
+
+
     <div class="account-icon">
       <i class="fas fa-user-circle"></i>
     </div>
@@ -771,9 +808,9 @@
 
     <div class="sidebar-links">
       <ul>
-       <a href="index4.html"><li>About Us</li></a>  
-       <a href="index8.html"><li>Profile</li></a>
-       <a href=""><li>Privacy</li></a> 
+        <a href="index4.html"><li>About Us</li></a>
+        <li><a href="index8.html">Profile</a></li>
+        <li><a href="">Privacy</a></li>
       </ul>
     </div>
   </div>
@@ -1036,6 +1073,34 @@
 </div>
   
 <script>
+    const body = document.body;
+  const button = document.querySelector(".theme-toggle");
+
+  // Check saved theme in localStorage
+  if (localStorage.getItem("theme")) {
+    body.className = localStorage.getItem("theme");
+    updateButton();
+  }
+
+  function toggleTheme() {
+    if (body.classList.contains("light-mode")) {
+      body.className = "dark-mode";
+      localStorage.setItem("theme", "dark-mode");
+    } else {
+      body.className = "light-mode";
+      localStorage.setItem("theme", "light-mode");
+    }
+    updateButton();
+  }
+
+  function updateButton() {
+    if (body.classList.contains("dark-mode")) {
+      button.textContent = "☀️ Day Mode";
+    } else {
+      button.textContent = "🌙 Night Mode";
+    }
+  }
+  
     // Static Cart Counter (Demo)
   let cartCount = 0;
   document.querySelectorAll('.add-to-cart').forEach(button => {
